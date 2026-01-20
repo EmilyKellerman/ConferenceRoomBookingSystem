@@ -109,6 +109,7 @@ This repository is currently used for:
  - API documentations (Swagger/OpenAPI)
  - Runtime instructions (Docker)
  - Developer setup and contribution workflows
+ - Common issues reported by users with solutions or notification of the fix being in progress
 
 ---
 
