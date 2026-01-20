@@ -22,6 +22,6 @@ If you have found a bug and would like to kindly inform the developer(s) of it:
  3) In the body of your email, provide a structured description on the feature you would like to implement and examples on how the feature would be used
  4) Indicate whether it is quality-of-life or neccessary functionality and quality of the system
 
- ## General Support
+ ## 💬 General Support
 
  If you are having trouble generally understanding the project and would like more information please refer to the [README file]("C:\Users\Training Center 1\Emily\ConferenceRoomBookingSystem\README.md")
