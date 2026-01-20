@@ -103,7 +103,7 @@ This repository is currently used for:
 
 ---
 
- ## Upcomming Documentation
+ ## ⏰ Upcomming Documentation
 
  The following sections will be added as the project evolves
  - API documentations (Swagger/OpenAPI)
