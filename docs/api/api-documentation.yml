@@ -1,0 +1,343 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'Conference Room Booking System'
+  description: This is a system where employees can view room availability, ordered by capacity, and book a conference room.
+  contact:
+    name: Emily
+    email: emilyckellerman@gmail.com
+
+servers:
+  - url: http://localhost:3000
+    description: local servers
+
+paths:
+  /Booking/FindByCapacity:
+
+    get:
+      summary: Finds Rooms by capacity
+      description: Employees can provide the minimum capacity required from a conference room and filter the list of rooms
+      operationId: findRoomsByCapacity
+      parameters:
+        - name: capacity
+          in: query
+          description: Capacity value to be considered in filtering
+          required: false
+          explode: true
+          schema:
+            type: integer
+            default: 2
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    RoomNumber:
+                      type: integer
+                      minimum: 1
+                      maximum: 10
+                    
+                    RoomCapacity:
+                      type: integer
+                      minimum: 2
+                      maximum: 30
+
+        '400':
+          description: Invalid capacity value
+
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties: 
+                    ErrorMessage:
+                      type: string
+                      
+  /Booking/EmployeeRooms:
+    get:
+      summary: Lists all rooms in ascending order
+      description: Generates a list of all the rooms available in ascending order by room number
+      operationId: listAvailableRooms
+      parameters:
+        - name: capacity
+          in: query
+          description: Capacity value to be considered in filtering
+          required: false
+          explode: true
+          schema:
+            type: integer
+            default: 2
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    RoomNumber:
+                      type: integer
+                      minimum: 1
+                      maximum: 10
+                    
+                    RoomCapacity:
+                      type: integer
+                      minimum: 2
+                      maximum: 30
+
+        '400':
+          description: Invalid capacity value
+
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties: 
+                    ErrorMessage:
+                      type: string
+    
+    delete:
+      summary: Deletes an existing booking
+      description: Delete an existing booking given that the person deleting the booking is the one who made the booking
+      operationId: deleteBooking
+      parameters:
+        - name: EmployeeNum
+          required: true
+          schema:
+            type: string
+
+      responses:
+        '200':
+          description: Booking deleted
+        '400':
+          description: Invalid EmployeeNum
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: A short description of the most relevant error message
+
+  /Booking/Admin:
+    put:
+      summary: Updates a room in the catalogue
+      description: Updates a room resource based on form data.
+      operationId: updateRoomWithForm
+      parameters:
+        - name: RoomNum
+          description: Number of the room that needs to be updated
+          required: true
+          schema:
+            type: integer
+        
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    RoomNumber:
+                      type: integer
+                      description: numer of the room
+                    RoomCapacity:
+                      type: integer
+                      description: the number of people the room can contain
+                    RoomRequirements:
+                      type: array
+                      items:
+                        properties:
+                          hardware:
+                            type: string
+                            description: harware required to use the room
+        
+        '400':
+          description: Invalid input
+
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: a string containing the most relevant error message
+
+    post:
+      summary: Add a new room to the catalogue
+      description: Add a new room to the catalogue
+      operationId: addRoom
+      requestBody:
+        description: Create a new room in the catalogue
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                properties:
+                  RoomNumber:
+                    type: integer
+                  RoomCapacity:
+                    type: integer
+                  RoomRequirements:
+                      type: array
+                      items:
+                        properties:
+                          hardware:
+                            type: string
+                            description: harware required to use the room
+                  
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                description: a message confirming the successful addition of a room
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Error message
+
+    delete:
+      summary: Deletes a room.
+      description: Delete a Room.
+      operationId: deleteRoom
+      parameters:
+        - name: EmployeeNum
+          required: true
+          schema:
+            type: string
+
+      responses:
+        '200':
+          description: Room deleted
+        '400':
+          description: Invalid EmployeeNum
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: A short description of the most relevant error message
+
+  /Booking/ReceptionistBooking:
+    get:
+      summary: Allow the receptionist to book a room on behalf of another person
+      description: Allow the receptionist to book a room on behalf of another person
+      operationId: ReceptionistBooking
+      parameters:
+        - name: PersonName
+          in: query
+          description: Name of person making the booking
+          required: true
+          schema:
+            type: string
+
+        - name: capacity
+          description: the amount of people a room can contain
+          schema:
+            type: integer
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    RoomNumber:
+                      type: integer
+                      minimum: 1
+                      maximum: 10
+                    
+                    RoomCapacity:
+                      type: integer
+                      minimum: 2
+                      maximum: 30
+
+        '400':
+          description: Invalid capacity value
+
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties: 
+                    ErrorMessage:
+                      type: string
+    
+  /Booking/FacilityManagerBooking:
+    get:
+      summary: Allow the receptionist to book a room on behalf of another person
+      description: Allow the receptionist to book a room on behalf of another person
+      operationId: FacilityManagerBooking
+      parameters:
+        - name: EmployeeNum
+          in: query
+          description: Unique number identifying the employee
+          required: true
+          schema:
+            type: string
+
+        - name: MaintenanceDuration
+          description: how long the maintenance will be in minutes
+          schema:
+            type: string
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    RoomNumber:
+                      type: integer
+                      minimum: 1
+                      maximum: 10
+
+        '400':
+          description: Invalid employee number provided
+
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties: 
+                    ErrorMessage:
+                      type: string
