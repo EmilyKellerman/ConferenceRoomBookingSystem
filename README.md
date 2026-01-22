@@ -1,6 +1,10 @@
 # 🏢 Conference Room Booking System
 
-This repository contains a practice project used to demonstrate professional Git, GitHub, and collaboration workflows.
+This repository contains a project with documentation of simulated sprints and preparation for a Conference Room Booking System.
+
+This system will allow employees to search a list of available rooms, filtering by a provided capacity if needed, and book a room for use.
+There will be an administrator login portal giving them access to the administrator dashboard.
+There will also be functionality for a receptionist to book on behalf of another person and for facility managers to book a room for maintenance.
 
 The project simulates a **Conference Room Booking System** that will be expanded over multiple modules to support learning around documentation, APIs, teamwork, and system handover.
 
@@ -9,8 +13,10 @@ The project simulates a **Conference Room Booking System** that will be expanded
 ## 🗂 Repository Contents
 
 - `README.md` – Basic project overview
-- `sprint/` – Sprint planning and execution artefacts created during Scrum simulations
-- `.gitignore` – Git ignore rules
+- `sprints/` – Sprint planning and execution artefacts created during Scrum simulations
+- `.github/` - Pull request, bug report and feature reaquest templates
+- `.gitignore` – Git ignore rules (will be added in the future)
+- `docs/` - Documentation for API's and other files specific to this project
 - `LICENSE` – Project license
 
 ---
@@ -26,7 +32,6 @@ Future iterations will introduce application code and setup instructions.
 ## 📌 Purpose of This Repository
 
 This repository is used for:
-- Practising Git and GitHub Fundamentals
 - Creating and Reviewing Pull Requests
 - Working with sprint documentation
 - Gradually improving project documentation over time
@@ -73,12 +78,13 @@ At this stage, the system is documented through:
 
  ## 🗎 Project Documentation
 
- This repository contains sprint documentation created during scrum simulations
+ This repository contains sprint documentation created during scrum simulations as well as API documentation
 
  ### Key Folders
 
  - sprint-1/ - -checkpoint.md, -dailies.md, -planning.md, -retrospective.md, -review.md, -summary.md
- - .github/ - pull_request_template.md
+ - .github/ - pull_request_template.md, issue_template/
+ - docs/api/ - api-documentation.md, API_EXAMPLES.md
 
 ---
 
@@ -90,6 +96,7 @@ Contributors should:
 - Create a feature or documentation branch
 - Submit changes via a Pull Request
 - Clearly describe the intent of the change and what was added or changed
+- A clear pull request template has been provided under .github/
 
 ---
 
